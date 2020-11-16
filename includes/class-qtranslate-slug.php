@@ -1447,6 +1447,16 @@ class QtranslateSlug {
 			$category = '';
 			if ( strpos( $permalink, '%category%' ) !== false ) {
 				$cats = get_the_category( $post->ID );
+                if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) || is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) ) {
+                    $seoPrimary = get_post_meta($post->ID, '_yoast_wpseo_primary_category', true);
+                    if(!empty($seoPrimary)) {
+                        foreach ($cats as $cat) {
+                            if($cat->term_id === (int)$seoPrimary) {
+                                $primary = $cat;
+                            }
+                        }
+                    }
+                }
 				if ( $cats ) {
 					usort( $cats, array( $this, 'usort_terms_by_id' ) ); // order by ID
 
