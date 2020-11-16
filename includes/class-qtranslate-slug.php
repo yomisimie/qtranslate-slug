@@ -1460,10 +1460,10 @@ class QtranslateSlug {
 				if ( $cats ) {
 					usort( $cats, array( $this, 'usort_terms_by_id' ) ); // order by ID
 
-					$category = get_term_meta( $cats[0]->term_id, $this->get_meta_key(), true );
-					if ( ! $category ) { $category = $cats[0]->slug; }
+					$category = get_term_meta( $primary->term_id, $this->get_meta_key(), true );
+					if ( ! $category ) { $category = $primary->slug; }
 
-					if ( $parent = $cats[0]->parent ) {
+					if ( $parent = $primary->parent ) {
 						$category = $this->get_category_parents( $parent, false, '/', true ) . $category;
 					}
 				}
